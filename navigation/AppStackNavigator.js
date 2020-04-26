@@ -29,7 +29,7 @@ const AppStackNavigator = () => {
         name='Question'
         component={Question}
         options={({ route }) => ({
-          title: route.params.isempty
+          title: route.params.isEmpty
             ? 'Empty Quiz'
             : route.params.score
             ? route.params.title

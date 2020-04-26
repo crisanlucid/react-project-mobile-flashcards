@@ -27,7 +27,12 @@ const DeckDetails = (props) => {
         </TouchButton>
         <TouchButton
           css={quizCss}
-          onPress={() => navigation.navigate('Question')}>
+          onPress={() =>
+            navigation.navigate('Question', {
+              isEmpty: 1,
+              score: 0,
+            })
+          }>
           Start Quiz
         </TouchButton>
         <TextButton
