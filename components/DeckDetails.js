@@ -4,7 +4,7 @@ import Deck from './Deck';
 import TouchButton from './TouchButton';
 import TextButton from './TextButton';
 
-const DeckDetails = () => {
+const DeckDetails = (props) => {
   const cardCss = {
     btn: { backgroundColor: 'white' },
     text: { color: 'black' },
@@ -15,14 +15,19 @@ const DeckDetails = () => {
     text: { color: 'white' },
   };
 
+  const { navigation } = props;
   return (
     <View style={styles.container}>
       <Deck />
       <View>
-        <TouchButton css={cardCss} onPress={() => console.log('card added')}>
+        <TouchButton
+          css={cardCss}
+          onPress={() => navigation.navigate('AddCard')}>
           Add Card
         </TouchButton>
-        <TouchButton css={quizCss} onPress={() => console.log('quiz started')}>
+        <TouchButton
+          css={quizCss}
+          onPress={() => navigation.navigate('Question')}>
           Start Quiz
         </TouchButton>
         <TextButton
