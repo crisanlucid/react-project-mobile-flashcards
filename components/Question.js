@@ -11,7 +11,7 @@ const screen = {
 
 export class Question extends Component {
   state = {
-    screen: screen.ANSWER,
+    screen: screen.QUESTION,
   };
   render() {
     switch (this.state.screen) {
