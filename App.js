@@ -4,9 +4,29 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './navigation/AppStackNavigator';
 import { blue } from './utils/colors';
 
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
+import Constants from 'expo-constants';
+
+const store = createStore(
+  reducer /* preloadedState, */,
+  compose(
+    applyMiddleware(thunk, logger),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__(),
+  ),
+);
+
 function FlashcardStatusBar({ backgroundColor, ...props }) {
   return (
-    <View style={{ backgroundColor, height: 50 }}>
+    <View
+      style={{
+        backgroundColor,
+        height: Constants.statusBarHeight,
+      }}>
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   );
@@ -14,12 +34,14 @@ function FlashcardStatusBar({ backgroundColor, ...props }) {
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <FlashcardStatusBar backgroundColor={blue} barStyle='light-content' />
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <FlashcardStatusBar backgroundColor={blue} barStyle='light-content' />
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </View>
+    </Provider>
   );
 };
 
