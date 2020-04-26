@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
+import TouchButton from './TouchButton';
 
 export class AddDeck extends Component {
   state = {
@@ -28,11 +23,11 @@ export class AddDeck extends Component {
             onChangeText={this.handleChange}
           />
         </View>
-        <View style={[styles.block, styles.btnContainer]}>
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.btnText}>Create Deck</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchButton
+          btnStyle={{ backgroundColor: 'gray' }}
+          onPress={() => console.log('deck created')}>
+          Create Deck
+        </TouchButton>
       </View>
     );
   }
