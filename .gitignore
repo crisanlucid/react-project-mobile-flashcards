@@ -60,3 +60,8 @@ buck-out/
 
 # Expo
 .expo/*
+
+#custom
+web-build/
+web-report/
+/.history
