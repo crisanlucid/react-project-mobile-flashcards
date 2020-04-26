@@ -1,9 +1,4 @@
-import {
-  RECEIVE_DECKS,
-  ADD_DECK,
-  REMOVE_DECK,
-  ADD_CARD,
-} from '../actions/index';
+import { RECEIVE_DECKS, ADD_DECK, REMOVE_DECK, ADD_CARD } from '../actions';
 import { formatId } from '../utils/helpers';
 
 export default function decks(state = {}, action) {
@@ -15,10 +10,10 @@ export default function decks(state = {}, action) {
       };
     case ADD_DECK:
       const { title } = action;
-      const id = formatId(title);
+      const validId = formatId(title);
       return {
         ...state,
-        [id]: {
+        [validId]: {
           title,
           questions: [],
         },

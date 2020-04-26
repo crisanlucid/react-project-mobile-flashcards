@@ -74,3 +74,15 @@ export async function resetDecks() {
     console.log(err);
   }
 }
+
+export async function removeDeck(key) {
+  try {
+    const storeResults = await AsyncStorage.getItem(DECKS_KEY);
+    const data = JSON.parse(storeResults);
+    data[key] = undefined;
+    delete data[key];
+    AsyncStorage.setItem(DECKS_KEY, JSON.stringify(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
