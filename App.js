@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './navigation/AppStackNavigator';
+import { blue } from './utils/colors';
 
 function FlashcardStatusBar({ backgroundColor, ...props }) {
   return (
@@ -14,7 +15,7 @@ function FlashcardStatusBar({ backgroundColor, ...props }) {
 const App = () => {
   return (
     <View style={styles.container}>
-      <FlashcardStatusBar backgroundColor='blue' barStyle='light-content' />
+      <FlashcardStatusBar backgroundColor={blue} barStyle='light-content' />
       <NavigationContainer>
         <AppNavigator />
       </NavigationContainer>
