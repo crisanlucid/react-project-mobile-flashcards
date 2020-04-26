@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function TextButton({ children, onPress, css = {} }) {
+const TextButton = ({ children, onPress, css = {} }) => {
   return (
     <View style={styles.btnContainer}>
       <TouchableOpacity onPress={onPress}>
@@ -9,7 +9,7 @@ export default function TextButton({ children, onPress, css = {} }) {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   btnContainer: {
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+export default TextButton;

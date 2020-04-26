@@ -1,11 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function TouchButton({
-  children,
-  onPress,
-  css = { btn: {}, text: {} },
-}) {
+const TouchButton = ({ children, onPress, css = { btn: {}, text: {} } }) => {
   return (
     <View style={styles.btnContainer}>
       <TouchableOpacity style={[styles.btn, css.btn]} onPress={onPress}>
@@ -13,7 +9,7 @@ export default function TouchButton({
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   btnContainer: {
@@ -36,3 +32,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+export default TouchButton;
