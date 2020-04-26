@@ -19,11 +19,9 @@ const styles = StyleSheet.create({
   btn: {
     width: 200,
     height: 50,
-    backgroundColor: 'blue',
     borderRadius: 5,
     justifyContent: `center`,
     alignItems: `center`,
-    borderWidth: 1,
     borderColor: '#999',
   },
   btnText: {

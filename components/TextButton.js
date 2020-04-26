@@ -14,8 +14,6 @@ const TextButton = ({ children, onPress, css = {} }) => {
 const styles = StyleSheet.create({
   btnContainer: {
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'red',
     marginBottom: 20,
   },
   btnText: {

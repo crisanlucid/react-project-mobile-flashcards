@@ -4,6 +4,7 @@ import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
 import AddCard from './components/AddCard';
+import Question from './components/Question';
 
 const App = () => {
   return (
@@ -11,7 +12,8 @@ const App = () => {
       {/* <DeckList /> */}
       {/* <AddDeck /> */}
       {/* <DeckDetails /> */}
-      <AddCard />
+      {/* <AddCard /> */}
+      <Question />
     </View>
   );
 };
