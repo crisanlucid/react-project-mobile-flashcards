@@ -1,11 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import DeckList from './components/DeckList';
+import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
+import AddCard from './components/AddCard';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <DeckDetails />
+      {/* <DeckList /> */}
+      {/* <AddDeck /> */}
+      {/* <DeckDetails /> */}
+      <AddCard />
     </View>
   );
 };
