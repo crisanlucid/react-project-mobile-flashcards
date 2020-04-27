@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import Deck from './Deck';
 import TouchButton from './TouchButton';
 import TextButton from './TextButton';
@@ -15,10 +15,11 @@ const DeckDetails = (props) => {
     text: { color: 'white' },
   };
 
-  const { navigation } = props;
+  const { navigation, route } = props;
+  const deck = route.params['deck'] || 'No deck';
   return (
     <View style={styles.container}>
-      <Deck />
+      <Deck deck={deck} />
       <View>
         <TouchButton
           css={cardCss}

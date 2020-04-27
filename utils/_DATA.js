@@ -43,7 +43,7 @@ export const decks = {
   },
   redux: {
     id: 'redux',
-    title: 'redux',
+    title: 'Redux',
     questions: [
       {
         question: 'What is Redux?',
