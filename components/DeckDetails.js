@@ -4,7 +4,7 @@ import Deck from './Deck';
 import TouchButton from './TouchButton';
 import TextButton from './TextButton';
 import { connect } from 'react-redux';
-import { removeDeck } from '../actions/index';
+import { handleRemoveCard } from '../actions';
 import { formatId } from '../utils/helpers';
 import { blue, white } from '../utils/colors';
 
@@ -15,7 +15,7 @@ class DeckDetails extends Component {
 
   handleDelete = (id) => {
     const { navigation, dispatch } = this.props;
-    dispatch(removeDeck(id));
+    dispatch(handleRemoveCard(id));
     navigation.goBack();
   };
 

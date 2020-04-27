@@ -3,6 +3,7 @@ import {
   resetDecks as resetDecksAPI,
   saveDeckTitle as saveDeckAPI,
   addCardToDeck as addCardAPI,
+  removeDeck as removeDeckAPI,
 } from '../utils/api';
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
@@ -74,6 +75,14 @@ export function handleAddCard(id, card) {
   return (dispatch) => {
     return addCardAPI(id, card).then(() => {
       dispatch(addCardToDeck(id, card));
+    });
+  };
+}
+
+export function handleRemoveCard(id) {
+  return (dispatch) => {
+    return removeDeckAPI(id).then(() => {
+      dispatch(removeDeck(id));
     });
   };
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 import TouchButton from './TouchButton';
 import { connect } from 'react-redux';
-import { handleAddCard } from '../actions/index';
+import { handleAddCard } from '../actions';
 import { blue, white, gray } from '../utils/colors';
 import { formatId } from '../utils/helpers';
 

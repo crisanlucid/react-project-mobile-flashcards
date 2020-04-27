@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Deck from './Deck';
 import { gray, textGray } from '../utils/colors';
-import { handleInitialData } from '../actions/index';
+import { handleInitialData } from '../actions';
 
 class DeckList extends Component {
   componentDidMount() {
