@@ -21,6 +21,7 @@ export default function decks(state = {}, action) {
       return {
         ...state,
         [validId]: {
+          id: validId,
           title,
           questions: [],
         },

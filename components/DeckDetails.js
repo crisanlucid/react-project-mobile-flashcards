@@ -33,7 +33,7 @@ class DeckDetails extends Component {
 
     return (
       <View style={styles.container}>
-        <Deck deck={deck} />
+        <Deck id={deck.id} />
         <View>
           <TouchButton
             css={cardCss}
