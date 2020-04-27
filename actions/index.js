@@ -33,7 +33,7 @@ export function removeDeck(id) {
   };
 }
 
-export function addQuestion(id, card) {
+export function addCardToDeck(id, card) {
   return {
     type: ADD_CARD,
     id,

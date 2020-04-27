@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 import TouchButton from './TouchButton';
+import { connect } from 'react-redux';
+import { addCardToDeck } from '../actions/index';
+import { blue, white, gray } from '../utils/colors';
+import { formatId } from '../utils/helpers';
 
 class AddCard extends Component {
   state = {
@@ -13,9 +17,20 @@ class AddCard extends Component {
   handleAnswerChange = (answer) => {
     this.setState({ answer });
   };
+  handleSubmit = () => {
+    const { dispatch, id, navigation } = this.props;
+    const card = {
+      question: this.state.question,
+      answer: this.state.answer,
+    };
+
+    dispatch(addCardToDeck(id, card));
+    this.setState({ question: '', answer: '' });
+    navigation.goBack();
+  };
   render() {
     const { answer, question } = this.state;
-    const cardCss = { btn: { backgroundColor: 'blue' } };
+    const cardCss = { btn: { backgroundColor: blue, borderColor: white } };
     return (
       <View style={styles.container}>
         <View>
@@ -39,7 +54,10 @@ class AddCard extends Component {
             />
           </View>
         </View>
-        <TouchButton css={cardCss} onPress={() => console.log('card added')}>
+        <TouchButton
+          css={cardCss}
+          onPress={this.handleSubmit}
+          disabled={this.state.question === '' || this.state.answer === ''}>
           Submit
         </TouchButton>
       </View>
@@ -50,8 +68,11 @@ class AddCard extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'green',
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
+    backgroundColor: gray,
     justifyContent: 'space-around',
   },
   block: {
@@ -62,9 +83,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    backgroundColor: '#fff',
+    borderColor: gray,
+    backgroundColor: white,
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 20,
@@ -72,4 +92,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddCard;
+const mapStateToProps = (state, { route }) => {
+  const id = formatId(route.params['title']) || undefined;
+
+  return {
+    id,
+  };
+};
+
+export default connect(mapStateToProps)(AddCard);

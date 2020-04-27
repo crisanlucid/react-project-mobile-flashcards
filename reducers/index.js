@@ -32,10 +32,11 @@ export default function decks(state = {}, action) {
       console.log(restDecks);
       return restDecks;
     case ADD_CARD:
-      const { deckId, card } = action;
+      const { id: deckId, card } = action;
       return {
         ...state,
         [deckId]: {
+          ...state[deckId],
           questions: [...state[deckId].questions].concat(card),
         },
       };

@@ -15,10 +15,10 @@ class DeckList extends Component {
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.title}>Mobile Flashcards</Text>
-        {Object.values(decks).map((deck) => {
+        {Object.values(decks).map((deck, index) => {
           return (
             <TouchableOpacity
-              key={deck.title}
+              key={`${deck.id}_${index}`}
               onPress={() =>
                 navigation.navigate('DeckDetails', {
                   deck: deck,
