@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import AddDeck from '../components/AddDeck';
 import DeckList from '../components/DeckList';
+import Settings from '../components/Settings';
 
 const isIOS = Platform.OS === 'android' ? false : true;
 
@@ -37,6 +38,16 @@ const TabNavigator = () => {
           tabBarLabel: 'Add Deck',
           tabBarIcon: ({ color }) => (
             <FontAwesome name='plus-square' size={30} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name='Settings'
+        component={Settings}
+        options={{
+          tabBarLabel: 'Settings',
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name='sliders' size={30} color={color} />
           ),
         }}
       />
