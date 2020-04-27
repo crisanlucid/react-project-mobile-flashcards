@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Deck from './Deck';
-import { gray } from '../utils/colors';
+import { gray, textGray } from '../utils/colors';
 import { handleInitialData } from '../actions/index';
 
 class DeckList extends Component {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     marginBottom: 16,
-    color: 'black',
+    color: textGray,
   },
 });
 

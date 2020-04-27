@@ -37,7 +37,8 @@ class AddDeck extends Component {
         </View>
         <TouchButton
           css={{ btn: { backgroundColor: blue, borderColor: white } }}
-          onPress={this.handleCreateDeckClick}>
+          onPress={this.handleCreateDeckClick}
+          disabled={text.length < 1}>
           Create Deck
         </TouchButton>
       </View>
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 30,
+    color: textGray,
   },
   input: {
     borderWidth: 1,

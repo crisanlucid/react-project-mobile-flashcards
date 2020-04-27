@@ -1,11 +1,23 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { textGray, white, darkGray, lightBlue } from '../utils/colors';
 
-const TouchButton = ({ children, onPress, css = { btn: {}, text: {} } }) => {
+const TouchButton = ({
+  children,
+  onPress,
+  css = { btn: {}, text: {} },
+  disabled = false,
+}) => {
+  console.log({ disabled });
+  const disableBtn = disabled ? styles.btnDisabled : {};
+  const disableText = disabled ? styles.btnText : {};
   return (
     <View style={styles.btnContainer}>
-      <TouchableOpacity style={[styles.btn, css.btn]} onPress={onPress}>
-        <Text style={[styles.btnText, css.text]}>{children}</Text>
+      <TouchableOpacity
+        style={[styles.btn, css.btn, disableBtn]}
+        onPress={onPress}
+        disabled={disabled}>
+        <Text style={[styles.btnText, css.text, disableText]}>{children}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -22,12 +34,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: `center`,
     alignItems: `center`,
-    borderColor: '#999',
+    borderColor: darkGray,
   },
   btnText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: white,
+  },
+  btnDisabled: {
+    backgroundColor: lightBlue,
+    borderColor: darkGray,
+    borderWidth: 1,
+  },
+  btnTextDisabled: {
+    color: darkGray,
   },
 });
 

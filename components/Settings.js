@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { gray, white, red, textGray, green } from '../utils/colors';
+import { gray, white, red, textGray } from '../utils/colors';
 import { connect } from 'react-redux';
 import TouchButton from './TouchButton';
 import { handleResetDecks } from '../actions';
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     marginBottom: 15,
-    color: green,
+    color: textGray,
   },
   block: {
     marginBottom: 20,

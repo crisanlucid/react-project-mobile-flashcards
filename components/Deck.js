@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { textGray, textBlue } from '../utils/colors';
 
 const Deck = (props) => {
   const { deck } = props;
@@ -31,10 +32,11 @@ const styles = StyleSheet.create({
   },
   deckText: {
     fontSize: 24,
+    color: textBlue,
   },
   cardText: {
     fontSize: 18,
-    color: 'gray',
+    color: textGray,
   },
 });
 
