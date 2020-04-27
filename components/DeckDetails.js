@@ -6,6 +6,7 @@ import TextButton from './TextButton';
 import { connect } from 'react-redux';
 import { removeDeck } from '../actions/index';
 import { formatId } from '../utils/helpers';
+import { blue, white } from '../utils/colors';
 
 class DeckDetails extends Component {
   shouldComponentUpdate(nextProps) {
@@ -20,13 +21,13 @@ class DeckDetails extends Component {
 
   render() {
     const cardCss = {
-      btn: { backgroundColor: 'white' },
+      btn: { backgroundColor: white },
       text: { color: 'black' },
     };
 
     const quizCss = {
-      btn: { backgroundColor: 'black' },
-      text: { color: 'white' },
+      btn: { backgroundColor: blue },
+      text: { color: white },
     };
 
     const { navigation, deck } = this.props;
@@ -46,9 +47,8 @@ class DeckDetails extends Component {
             css={quizCss}
             onPress={() =>
               navigation.navigate('Question', {
-                isEmpty: 1,
-                score: 0,
-                title: 'Quiz',
+                isEmpty: deck.title.length < 1,
+                title: deck.title,
               })
             }>
             Start Quiz
@@ -68,8 +68,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
-    borderWidth: 1,
-    borderColor: 'green',
   },
 });
 

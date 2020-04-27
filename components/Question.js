@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import TextButton from './TextButton';
 import TouchButton from './TouchButton';
-import { red, green, white, textGray, gray, darkGray } from '../utils/colors';
+import {
+  red,
+  green,
+  white,
+  textGray,
+  gray,
+  darkGray,
+  blue,
+} from '../utils/colors';
+import { formatId } from '../utils/helpers';
 
 const screen = {
   ANSWER: 'answer',
@@ -10,67 +20,101 @@ const screen = {
   RESULT: 'result',
 };
 
+const answer = {
+  CORRECT: 'correct',
+  INCORRECT: 'incorrect',
+};
+
 export class Question extends Component {
   state = {
     screen: screen.QUESTION,
+    score: 0,
+    currentCard: 1,
+    answered: Array(this.props.deck.questions.length).fill(0),
+    totalCards: this.props.deck.questions.length,
+  };
+
+  handleAnswer = (response) => {
+    const { currentCard, totalCards } = this.state;
+    if (response === answer.CORRECT) {
+      this.setState((currentState) => ({
+        score: currentState.score + 1,
+      }));
+    }
+
+    if (currentCard < totalCards) {
+      this.setState((currentState) => ({
+        currentCard: currentState.currentCard + 1,
+        answered: currentState.answered.map((value, index) =>
+          currentState.currentCard === index ? 1 : value,
+        ),
+      }));
+    } else {
+      this.setState({ screen: screen.RESULT });
+    }
+  };
+  handleNextQuestion = (event) => {};
+
+  handleReset = () => {
+    this.setState((currentState) => ({
+      screen: screen.QUESTION,
+      score: 0,
+      currentCard: 1,
+      answered: Array(currentState.totalCards).fill(0),
+      totalCards: currentState.totalCards,
+    }));
   };
   render() {
-    switch (this.state.screen) {
+    const { deck, navigation } = this.props;
+    const { currentCard, totalCards, score, screen: showPanel } = this.state;
+    const card = deck.questions[currentCard - 1];
+
+    switch (showPanel) {
       case screen.QUESTION:
-        return (
-          <View style={styles.container}>
-            <View style={styles.block}>
-              <Text style={styles.count}>1 / 3</Text>
-            </View>
-            <View style={styles.block}>
-              <Text style={styles.questionText}>Question</Text>
-              <Text style={styles.title}>Does React Native work with Web?</Text>
-            </View>
-            <TextButton
-              css={{ color: red, fontWeight: 'bold' }}
-              onPress={() => this.setState({ screen: screen.ANSWER })}>
-              Answer
-            </TextButton>
-            <View>
-              <TouchButton
-                css={{ btn: { backgroundColor: green, borderColor: white } }}
-                onPress={() => this.setState({ screen: screen.RESULT })}>
-                Correct
-              </TouchButton>
-              <TouchButton
-                css={{ btn: { backgroundColor: red, borderColor: white } }}
-                onPress={() => this.setState({ screen: screen.RESULT })}>
-                Incorrect
-              </TouchButton>
-            </View>
-          </View>
-        );
       case screen.ANSWER:
         return (
-          <View style={styles.container}>
+          <View style={styles.pageStyle}>
             <View style={styles.block}>
-              <Text style={styles.count}>1 / 3</Text>
-            </View>
-            <View style={styles.block}>
-              <Text style={styles.questionText}>Answer</Text>
-              <Text style={styles.title}>
-                React Native works with Android, iOS, Windows, & Web.
+              <Text style={styles.count}>
+                {currentCard} / {totalCards}
               </Text>
             </View>
-            <TextButton
-              css={{ color: red, fontWeight: 'bold' }}
-              onPress={() => this.setState({ screen: screen.QUESTION })}>
-              Question
-            </TextButton>
+            <View style={[styles.block, styles.questionContainer]}>
+              <Text style={styles.questionText}>
+                {showPanel === screen.QUESTION ? 'Question' : 'Answer'}
+              </Text>
+              <Text style={styles.title}>
+                {showPanel === screen.QUESTION ? card.question : card.answer}
+              </Text>
+            </View>
+            {showPanel === screen.QUESTION ? (
+              <TextButton
+                css={{ color: red }}
+                onPress={() => this.setState({ screen: screen.ANSWER })}>
+                Answer
+              </TextButton>
+            ) : (
+              <TextButton
+                css={{ color: red }}
+                onPress={() => this.setState({ screen: screen.QUESTION })}>
+                Question
+              </TextButton>
+            )}
             <View>
               <TouchButton
-                css={{ btn: { backgroundColor: green, borderColor: white } }}
-                onPress={() => this.setState({ screen: screen.RESULT })}>
+                css={{
+                  btn: { backgroundColor: green, borderColor: white },
+                }}
+                onPress={() => this.handleAnswer(answer.CORRECT)}
+                disabled={this.state.answered[currentCard] === 1}>
                 Correct
               </TouchButton>
               <TouchButton
-                css={{ btn: { backgroundColor: red, borderColor: white } }}
-                onPress={() => this.setState({ screen: screen.RESULT })}>
+                css={{
+                  btn: { backgroundColor: red, borderColor: white },
+                }}
+                onPress={() => this.handleAnswer(answer.INCORRECT)}
+                disabled={this.state.answered[currentCard] === 1}>
                 Incorrect
               </TouchButton>
             </View>
@@ -78,13 +122,20 @@ export class Question extends Component {
         );
       case screen.RESULT:
         return (
-          <View style={[styles.container, { justifyContent: 'center' }]}>
+          <View
+            style={[
+              styles.container,
+              styles.pageStyle,
+              { justifyContent: 'center' },
+            ]}>
             <View style={styles.block}>
               <Text style={styles.count}>End</Text>
             </View>
             <View style={styles.block}>
               <Text style={styles.title}>Quiz Complete!</Text>
-              <Text style={styles.resultTextGood}>2 / 3 correct</Text>
+              <Text style={styles.resultTextOk}>
+                {score} / {totalCards} correct
+              </Text>
             </View>
             <View style={styles.block}>
               <Text style={[styles.count, { textAlign: 'center' }]}>
@@ -96,13 +147,15 @@ export class Question extends Component {
                   fontSize: 46,
                   textAlign: 'center',
                 }}>
-                75%
+                {((score / totalCards) * 100).toFixed(0)}%
               </Text>
             </View>
             <View style={styles.block}>
               <TouchButton
-                css={{ btn: { backgroundColor: green, borderColor: white } }}
-                onPress={() => this.setState({ screen: screen.QUESTION })}>
+                css={{
+                  btn: { backgroundColor: green, borderColor: white },
+                }}
+                onPress={() => this.handleReset()}>
                 Restart Quiz
               </TouchButton>
               <TouchButton
@@ -110,12 +163,17 @@ export class Question extends Component {
                   btn: { backgroundColor: gray, borderColor: textGray },
                   text: { color: textGray },
                 }}
-                onPress={() => this.props.navigation.goBack()}>
+                onPress={() => {
+                  this.handleReset();
+                  navigation.navigate('Home');
+                }}>
                 Go to Deck
               </TouchButton>
             </View>
           </View>
         );
+      default:
+        return <div>Something is wrong</div>;
     }
   }
 }
@@ -123,10 +181,13 @@ export class Question extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
+  },
+  pageStyle: {
+    flex: 1,
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
     backgroundColor: gray,
     justifyContent: 'space-around',
   },
@@ -153,16 +214,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
   },
-  resultTextGood: {
+  resultTextOk: {
     color: green,
     fontSize: 46,
     textAlign: 'center',
   },
-  resultTextBad: {
+  resultTextWrong: {
     color: red,
     fontSize: 46,
     textAlign: 'center',
   },
 });
 
-export default Question;
+const mapStateToProps = (state, { route }) => {
+  const title = formatId(route.params.title) || null;
+  const deck = state[title];
+
+  return {
+    deck,
+  };
+};
+export default connect(mapStateToProps)(Question);
