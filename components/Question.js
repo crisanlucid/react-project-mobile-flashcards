@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import TextButton from './TextButton';
+import TextButton from './TextButtons';
 import TouchButton from './TouchButton';
 import {
   red,
@@ -12,7 +12,7 @@ import {
   darkGray,
   blue,
 } from '../utils/colors';
-import { formatId } from '../utils/helpers';
+import { formatId, clearNotification, setNotification } from '../utils/helpers';
 
 const screen = {
   ANSWER: 'answer',
@@ -25,7 +25,10 @@ const answer = {
   INCORRECT: 'incorrect',
 };
 
-export class Question extends Component {
+class Question extends Component {
+  componentDidMount() {
+    clearNotification().then(setNotification);
+  }
   state = {
     screen: screen.QUESTION,
     score: 0,

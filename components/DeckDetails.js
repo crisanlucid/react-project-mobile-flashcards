@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Deck from './Deck';
 import TouchButton from './TouchButton';
-import TextButton from './TextButton';
+import TextButton from './TextButtons';
 import { connect } from 'react-redux';
 import { handleRemoveCard } from '../actions';
 import { formatId } from '../utils/helpers';
