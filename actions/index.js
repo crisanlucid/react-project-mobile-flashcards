@@ -1,6 +1,7 @@
-import { getDecks } from '../utils/api';
+import { getDecks, resetDecks as resetDecksAPI } from '../utils/api';
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
+export const RESET_DECKS = 'RESET_DECKS';
 export const ADD_DECK = 'ADD_DECK';
 export const REMOVE_DECK = 'REMOVE_DECK';
 export const ADD_CARD = 'ADD_CARD';
@@ -9,6 +10,12 @@ export function receiveDecks(decks) {
   return {
     type: RECEIVE_DECKS,
     decks,
+  };
+}
+
+export function resetDecks() {
+  return {
+    type: RESET_DECKS,
   };
 }
 
@@ -38,6 +45,14 @@ export function handleInitialData() {
   return (dispatch) => {
     return getDecks().then((decks) => {
       dispatch(receiveDecks(decks));
+    });
+  };
+}
+
+export function handleResetDecks() {
+  return (dispatch) => {
+    return resetDecksAPI().then(() => {
+      dispatch(resetDecks());
     });
   };
 }

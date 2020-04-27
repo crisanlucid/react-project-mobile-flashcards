@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { decks } from './_DATA';
+import decks from './_DATA';
 import { formatId } from './helpers';
 
 const DECKS_KEY = 'mobileFlashCards:decks';
@@ -69,7 +69,7 @@ export async function addCardToDeck(title, card) {
 
 export async function resetDecks() {
   try {
-    await AsyncStorage.removeItem(DECKS_KEY);
+    await AsyncStorage.setItem(DECKS_KEY, JSON.stringify(decks));
   } catch (err) {
     console.log(err);
   }

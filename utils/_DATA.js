@@ -1,4 +1,4 @@
-export const decks = {
+const decks = {
   react: {
     id: 'react',
     title: 'React',
@@ -62,3 +62,5 @@ export const decks = {
     ],
   },
 };
+
+export default decks;

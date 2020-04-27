@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { gray, white, red, textGray, green } from '../utils/colors';
 import { connect } from 'react-redux';
-import { resetDecks } from '../utils/api.js';
 import TouchButton from './TouchButton';
+import { handleResetDecks } from '../actions';
 
 class Settings extends Component {
   handleResetDecks = () => {
-    const { navigation } = this.props;
-    //TODO: dispatch reset STORE
+    const { navigation, dispatch } = this.props;
+    dispatch(handleResetDecks());
     navigation.goBack();
   };
   render() {
