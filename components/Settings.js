@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   blockText: {
     fontSize: 18,
     color: textGray,
+    textAlign: 'center',
   },
 });
 

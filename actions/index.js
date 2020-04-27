@@ -1,4 +1,9 @@
-import { getDecks, resetDecks as resetDecksAPI } from '../utils/api';
+import {
+  getDecks,
+  resetDecks as resetDecksAPI,
+  saveDeckTitle as saveDeckAPI,
+  addCardToDeck as addCardAPI,
+} from '../utils/api';
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const RESET_DECKS = 'RESET_DECKS';
@@ -53,6 +58,22 @@ export function handleResetDecks() {
   return (dispatch) => {
     return resetDecksAPI().then(() => {
       dispatch(resetDecks());
+    });
+  };
+}
+
+export function handleAddDeck(title) {
+  return (dispatch) => {
+    return saveDeckAPI(title).then(() => {
+      dispatch(addDeck(title));
+    });
+  };
+}
+
+export function handleAddCard(id, card) {
+  return (dispatch) => {
+    return addCardAPI(id, card).then(() => {
+      dispatch(addCardToDeck(id, card));
     });
   };
 }

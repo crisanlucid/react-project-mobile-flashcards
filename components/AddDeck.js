@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 import TouchButton from './TouchButton';
 import { connect } from 'react-redux';
-import { addDeck } from '../actions';
+import { handleAddDeck } from '../actions';
 import Constants from 'expo-constants';
 import { textGray, white, blue, gray } from '../utils/colors';
 
@@ -16,7 +16,7 @@ class AddDeck extends Component {
   handleCreateDeckClick = () => {
     const { dispatch, navigation } = this.props;
 
-    dispatch(addDeck(this.state.text));
+    dispatch(handleAddDeck(this.state.text));
     this.setState(() => ({ text: '' }));
     navigation.goBack();
   };
@@ -30,6 +30,7 @@ class AddDeck extends Component {
         </View>
         <View style={styles.block}>
           <TextInput
+            autoFocus={true}
             style={styles.input}
             value={text}
             onChangeText={this.handleChange}

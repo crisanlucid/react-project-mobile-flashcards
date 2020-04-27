@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 import TouchButton from './TouchButton';
 import { connect } from 'react-redux';
-import { addCardToDeck } from '../actions/index';
+import { handleAddCard } from '../actions/index';
 import { blue, white, gray } from '../utils/colors';
 import { formatId } from '../utils/helpers';
 
@@ -24,7 +24,9 @@ class AddCard extends Component {
       answer: this.state.answer,
     };
 
-    dispatch(addCardToDeck(id, card));
+    //persistance
+    dispatch(handleAddCard(id, card));
+
     this.setState({ question: '', answer: '' });
     navigation.goBack();
   };
@@ -41,6 +43,7 @@ class AddCard extends Component {
             <TextInput
               style={styles.input}
               value={question}
+              autoFocus={true}
               onChangeText={this.handleQuestionChange}
               placeholder='Question'
             />
