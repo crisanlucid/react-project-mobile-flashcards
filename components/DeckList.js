@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Deck from './Deck';
 import { gray, textGray } from '../utils/colors';
 import { handleInitialData } from '../actions/index';
@@ -29,6 +29,11 @@ class DeckList extends Component {
             </TouchableOpacity>
           );
         })}
+        {Object.values(decks).length === 0 && (
+          <TouchableOpacity onPress={() => navigation.navigate('AddDeck')}>
+            <Text style={styles.subTitle}>No Deck</Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     );
   }
@@ -47,6 +52,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     marginBottom: 16,
+    color: textGray,
+  },
+  subTitle: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginTop: 15,
     color: textGray,
   },
 });

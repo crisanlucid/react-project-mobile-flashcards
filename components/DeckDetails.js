@@ -13,8 +13,8 @@ class DeckDetails extends Component {
   }
 
   handleDelete = (id) => {
-    //todo: dispatch remove Deck
-    const { navigation } = this.props;
+    const { navigation, dispatch } = this.props;
+    dispatch(removeDeck(id));
     navigation.goBack();
   };
 
