@@ -25,7 +25,7 @@ class DeckList extends Component {
                   title: deck.title,
                 })
               }>
-              <Deck deck={deck} />
+              <Deck id={deck.id} />
             </TouchableOpacity>
           );
         })}
