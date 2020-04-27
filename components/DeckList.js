@@ -21,7 +21,6 @@ class DeckList extends Component {
               key={`${deck.id}_${index}`}
               onPress={() =>
                 navigation.navigate('DeckDetails', {
-                  deck: deck,
                   title: deck.title,
                 })
               }>

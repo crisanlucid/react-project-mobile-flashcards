@@ -4,7 +4,7 @@ import TabNavigator from './TabNavigator';
 import Question from '../components/Question';
 import DeckDetails from '../components/DeckDetails';
 import AddCard from '../components/AddCard';
-import { blue, lightBlue } from '../utils/colors';
+import { lightBlue, white } from '../utils/colors';
 const Stack = createStackNavigator();
 
 const AppStackNavigator = () => {
@@ -22,7 +22,7 @@ const AppStackNavigator = () => {
         component={TabNavigator}
         options={{
           title: 'Decks',
-          headerTintColor: blue,
+          headerTintColor: white,
           headerStyle: {
             backgroundColor: lightBlue,
           },
@@ -33,7 +33,7 @@ const AppStackNavigator = () => {
         component={DeckDetails}
         options={({ route }) => ({
           title: route.params.title,
-          headerTintColor: blue,
+          headerTintColor: white,
           headerStyle: {
             backgroundColor: lightBlue,
           },
@@ -44,7 +44,7 @@ const AppStackNavigator = () => {
         component={AddCard}
         options={{
           title: 'Add Card',
-          headerTintColor: blue,
+          headerTintColor: white,
           headerStyle: {
             backgroundColor: lightBlue,
           },
@@ -57,11 +57,8 @@ const AppStackNavigator = () => {
           headerStyle: {
             backgroundColor: lightBlue,
           },
-          title: route.params.isEmpty
-            ? 'Empty Quiz'
-            : route.params.score
-            ? route.params.title
-            : 'Quiz',
+          headerTintColor: white,
+          title: route.params.isEmpty ? 'Empty Quiz' : route.params.title,
         })}
       />
     </Stack.Navigator>
