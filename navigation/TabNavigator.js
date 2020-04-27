@@ -29,6 +29,9 @@ const TabNavigator = () => {
               color={color}
             />
           ),
+          tabBarOptions: {
+            style: { padding: 5 },
+          },
         }}
       />
       <Tab.Screen
@@ -39,6 +42,9 @@ const TabNavigator = () => {
           tabBarIcon: ({ color }) => (
             <FontAwesome name='plus-square' size={30} color={color} />
           ),
+          tabBarOptions: {
+            style: { padding: 5 },
+          },
         }}
       />
       <Tab.Screen
@@ -49,6 +55,9 @@ const TabNavigator = () => {
           tabBarIcon: ({ color }) => (
             <FontAwesome name='sliders' size={30} color={color} />
           ),
+          tabBarOptions: {
+            style: { padding: 5 },
+          },
         }}
       />
     </Tab.Navigator>

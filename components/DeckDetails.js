@@ -6,7 +6,7 @@ import TextButton from './TextButtons';
 import { connect } from 'react-redux';
 import { handleRemoveCard } from '../actions';
 import { formatId } from '../utils/helpers';
-import { blue, white } from '../utils/colors';
+import { blue, white, darkGray } from '../utils/colors';
 
 class DeckDetails extends Component {
   shouldComponentUpdate(nextProps) {
@@ -21,7 +21,7 @@ class DeckDetails extends Component {
 
   render() {
     const cardCss = {
-      btn: { backgroundColor: white },
+      btn: { backgroundColor: white, borderColor: darkGray, borderWidth: 1 },
       text: { color: 'black' },
     };
 
@@ -68,6 +68,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
   },
 });
 
