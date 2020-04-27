@@ -29,7 +29,7 @@ function __createNotification() {
 function __createChannel() {
   return {
     name: 'Daily Reminder',
-    description: 'Daily reminder for you to study your flashcards.',
+    description: "Don't forget to finish a quiz today. Gotta stay in shape.",
     sound: true,
     priority: 'high',
   };
@@ -57,12 +57,12 @@ export function setNotification() {
                 Notifications.cancelAllScheduledNotificationsAsync();
 
                 const tomorrow = new Date();
-                // 3 minutes from now
-                tomorrow.setTime(tomorrow.getTime() + 1 * 60000);
+                // 1 minute from now
+                // tomorrow.setTime(tomorrow.getTime() + 1 * 60000);
 
-                // tomorrow.setDate(tomorrow.getDate() + 1);
-                // tomorrow.setHours(19);
-                // tomorrow.setMinutes(0);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                tomorrow.setHours(19);
+                tomorrow.setMinutes(0);
 
                 Notifications.scheduleLocalNotificationAsync(
                   __createNotification(),

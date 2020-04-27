@@ -5,10 +5,8 @@ import { connect } from 'react-redux';
 
 const Deck = (props) => {
   const { deck } = props;
-  console.log({ deck });
 
   if (deck === undefined) {
-    console.log('deck undefined...');
     return <View style={styles.deckContainer} />;
   }
   return (

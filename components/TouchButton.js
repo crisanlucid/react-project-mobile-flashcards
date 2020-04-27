@@ -8,7 +8,6 @@ const TouchButton = ({
   css = { btn: {}, text: {} },
   disabled = false,
 }) => {
-  console.log({ disabled });
   const disableBtn = disabled ? styles.btnDisabled : {};
   const disableText = disabled ? styles.btnText : {};
   return (
