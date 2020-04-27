@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 import TouchButton from './TouchButton';
+import { connect } from 'react-redux';
+import { addDeck } from '../actions';
+import Constants from 'expo-constants';
+import { textGray, white, blue, gray } from '../utils/colors';
 
-export class AddDeck extends Component {
+class AddDeck extends Component {
   state = {
     text: '',
   };
   handleChange = (text) => {
     this.setState({ text });
   };
+  handleCreateDeckClick = () => {
+    const { dispatch, navigation } = this.props;
+
+    dispatch(addDeck(this.state.text));
+    this.setState(() => ({ text: '' }));
+    navigation.goBack();
+  };
   render() {
     const { text } = this.state;
     return (
       <View style={styles.container}>
+        <View style={{ height: Constants.statusBarHeight }} />
         <View style={styles.block}>
           <Text style={styles.title}>Title of the deck</Text>
         </View>
@@ -24,8 +36,8 @@ export class AddDeck extends Component {
           />
         </View>
         <TouchButton
-          btnStyle={{ backgroundColor: 'gray' }}
-          onPress={() => console.log('deck created')}>
+          css={{ btn: { backgroundColor: blue, borderColor: white } }}
+          onPress={this.handleCreateDeckClick}>
           Create Deck
         </TouchButton>
       </View>
@@ -34,7 +46,15 @@ export class AddDeck extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20, width: '100%' },
+  container: {
+    flex: 1,
+    width: '100%',
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
+    backgroundColor: gray,
+  },
   block: {
     marginBottom: 20,
   },
@@ -44,30 +64,14 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
-    backgroundColor: '#fff',
+    borderColor: textGray,
+    backgroundColor: white,
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 20,
     height: 40,
-  },
-  btnContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btn: {
-    width: 200,
-    height: 50,
-    backgroundColor: 'blue',
-    borderRadius: 5,
-    justifyContent: `center`,
-    alignItems: `center`,
-  },
-  btnText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
+    textAlign: 'center',
   },
 });
 
-export default AddDeck;
+export default connect()(AddDeck);
