@@ -69,6 +69,21 @@ export class Question extends Component {
     const { currentCard, totalCards, score, screen: showPanel } = this.state;
     const card = deck.questions[currentCard - 1];
 
+    if (totalCards === 0) {
+      return (
+        <View style={styles.pageStyle}>
+          <View style={styles.block}>
+            <Text style={[styles.count, { textAlign: 'center' }]}>
+              No cards in the deck.
+            </Text>
+            <Text style={[styles.count, { textAlign: 'center' }]}>
+              Please add some cards and try again.
+            </Text>
+          </View>
+        </View>
+      );
+    }
+
     switch (showPanel) {
       case screen.QUESTION:
       case screen.ANSWER:
