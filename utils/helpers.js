@@ -1,6 +1,7 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
+import Constants from 'expo-constants';
 
 import * as Permissions from 'expo-permissions';
 
@@ -8,8 +9,8 @@ export function formatId(title) {
   return title.toLowerCase();
 }
 
-const CHANNEL_ID = 'DailyReminder';
 const NOTIFICATION_KEY = 'mobileFlashCards:notifications';
+const CHANNEL_ID = 'DailyReminder';
 
 function __createNotification() {
   return {
@@ -18,7 +19,9 @@ function __createNotification() {
     ios: {
       sound: true,
     },
+    _displayInForeground: true,
     android: {
+      sound: true,
       channelId: CHANNEL_ID,
       sticky: false,
       color: 'red',
@@ -26,59 +29,44 @@ function __createNotification() {
   };
 }
 
-function __createChannel() {
-  return {
-    name: 'Daily Reminder',
-    description: "Don't forget to finish a quiz today. Gotta stay in shape.",
-    sound: true,
-    priority: 'high',
-  };
-}
-
 export function clearNotification() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
-    Notifications.cancelAllScheduledNotificationsAsync,
-  );
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
+    .catch();
 }
 
 export function setNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
-    .then((data) => {
+    .then(async (data) => {
       if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-          if (status === 'granted') {
-            Notifications.createChannelAndroidAsync(
-              CHANNEL_ID,
-              __createChannel(),
-            )
-              .then((val) => console.log('channel return:', val))
-              .then(() => {
-                Notifications.cancelAllScheduledNotificationsAsync();
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS,
+        );
 
-                const tomorrow = new Date();
-                // 1 minute from now
-                // tomorrow.setTime(tomorrow.getTime() + 1 * 60000);
+        if (status === 'granted') {
+          Notifications.cancelAllScheduledNotificationsAsync();
 
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                tomorrow.setHours(19);
-                tomorrow.setMinutes(0);
+          const tomorrow = new Date();
+          // 1 minute from now
+          // tomorrow.setTime(tomorrow.getTime() + 1 * 60000);
 
-                Notifications.scheduleLocalNotificationAsync(
-                  __createNotification(),
-                  {
-                    time: tomorrow,
-                    repeat: 'day',
-                  },
-                );
-
-                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
-              })
-              .catch((err) => {
-                console.log('err', err);
-              });
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          tomorrow.setHours(19);
+          tomorrow.setMinutes(0);
+          try {
+            await Notifications.scheduleLocalNotificationAsync(
+              __createNotification(),
+              {
+                time: tomorrow,
+                repeat: 'day',
+              },
+            );
+            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+          } catch (err) {
+            console.log('error', err);
           }
-        });
+        }
       }
     });
 }
