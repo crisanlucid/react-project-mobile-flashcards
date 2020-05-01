@@ -32,6 +32,17 @@ class DeckDetails extends Component {
 
     const { navigation, deck } = this.props;
 
+    if (typeof deck === 'undefined') {
+      return (
+        <View style={styles.container}>
+          <TouchButton
+            css={cardCss}
+            onPress={() => navigation.navigate('AddDeck')}>
+            No Deck
+          </TouchButton>
+        </View>
+      );
+    }
     return (
       <View style={styles.container}>
         <Deck id={deck.id} />

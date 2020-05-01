@@ -3,16 +3,14 @@ import { Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import TextButton from './TextButtons';
 import TouchButton from './TouchButton';
+
+import { red, green, white, textGray, gray, darkGray } from '../utils/colors';
 import {
-  red,
-  green,
-  white,
-  textGray,
-  gray,
-  darkGray,
-  blue,
-} from '../utils/colors';
-import { formatId, clearNotification, setNotification } from '../utils/helpers';
+  formatId,
+  clearNotification,
+  setNotification,
+  isWeb,
+} from '../utils/helpers';
 
 const screen = {
   ANSWER: 'answer',
@@ -27,7 +25,10 @@ const answer = {
 
 class Question extends Component {
   componentDidMount() {
-    clearNotification().then(setNotification);
+    if (!isWeb()) {
+      clearNotification().then(setNotification);
+      console.log('is mobile...');
+    }
   }
   state = {
     screen: screen.QUESTION,
@@ -56,7 +57,6 @@ class Question extends Component {
       this.setState({ screen: screen.RESULT });
     }
   };
-  handleNextQuestion = (event) => {};
 
   handleReset = () => {
     this.setState((currentState) => ({

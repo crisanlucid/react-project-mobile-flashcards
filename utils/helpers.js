@@ -1,5 +1,4 @@
-import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Platform } from 'react-native';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 
@@ -22,6 +21,7 @@ function __createNotification() {
     _displayInForeground: true,
     android: {
       sound: true,
+      vibrate: true,
       channelId: CHANNEL_ID,
       sticky: false,
       color: 'red',
@@ -69,4 +69,8 @@ export function setNotification() {
         }
       }
     });
+}
+
+export function isWeb() {
+  return !(Platform.OS === 'ios' || Platform.OS === 'android');
 }

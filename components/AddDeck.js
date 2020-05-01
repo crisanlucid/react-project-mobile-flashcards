@@ -16,9 +16,10 @@ class AddDeck extends Component {
   handleCreateDeckClick = () => {
     const { dispatch, navigation } = this.props;
 
-    dispatch(handleAddDeck(this.state.text));
-    this.setState(() => ({ text: '' }));
-    navigation.goBack();
+    dispatch(handleAddDeck(this.state.text)).then(() => {
+      navigation.navigate('DeckDetails', { title: this.state.text });
+      this.setState(() => ({ text: '' }));
+    });
   };
   render() {
     const { text } = this.state;

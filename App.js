@@ -10,7 +10,7 @@ import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import Constants from 'expo-constants';
-import { setNotification } from './utils/helpers';
+import { setNotification, isWeb } from './utils/helpers';
 
 const store = createStore(
   reducer /* preloadedState, */,
@@ -35,8 +35,11 @@ function FlashcardStatusBar({ backgroundColor, ...props }) {
 
 class App extends Component {
   componentDidMount() {
-    setNotification();
+    if (!isWeb()) {
+      setNotification();
+    }
   }
+
   render() {
     return (
       <Provider store={store}>
