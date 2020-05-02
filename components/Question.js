@@ -48,6 +48,7 @@ class Question extends Component {
 
     if (currentCard < totalCards) {
       this.setState((currentState) => ({
+        screen: screen.QUESTION, //each time when is answered
         currentCard: currentState.currentCard + 1,
         answered: currentState.answered.map((value, index) =>
           currentState.currentCard === index ? 1 : value,
