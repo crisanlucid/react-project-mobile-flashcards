@@ -68,8 +68,12 @@ class Question extends Component {
       totalCards: currentState.totalCards,
     }));
   };
+  handlerClickBackDeck = (deck) => {
+    const { navigation } = this.props;
+    navigation.navigate('DeckDetails', { title: deck.title });
+  };
   render() {
-    const { deck, navigation } = this.props;
+    const { deck } = this.props;
     const { currentCard, totalCards, score, screen: showPanel } = this.state;
     const card = deck.questions[currentCard - 1];
 
@@ -184,7 +188,7 @@ class Question extends Component {
                 }}
                 onPress={() => {
                   this.handleReset();
-                  navigation.navigate('Home');
+                  this.handlerClickBackDeck(deck);
                 }}>
                 Go to Deck
               </TouchButton>
